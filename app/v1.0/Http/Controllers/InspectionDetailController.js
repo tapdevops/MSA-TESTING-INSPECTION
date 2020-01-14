@@ -62,7 +62,7 @@ exports.create = (req, res) => {
 						}
 						res.send({
 							status: true,
-							message: success,
+							message: "success",
 							data: []
 						});
 					}).catch(err => {
