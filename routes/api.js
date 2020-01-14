@@ -29,6 +29,6 @@ module.exports = (app) => {
     | Versi 1.0
     |--------------------------------------------------------------------------
     */
-    app.post('/api/v1.1/detail', Controllers.InspectionDetailController.create_or_update);
+    app.post('/api/v1.1/detail', Controllers.InspectionDetailController.create);
     app.get('/api/v1.1/detail', Controllers.InspectionDetailController.find_one);
 }
