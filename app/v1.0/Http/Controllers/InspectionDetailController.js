@@ -8,7 +8,8 @@
  */
 // Models
 const InspectionDModel = require(_directory_base + '/app/v1.0/Http/Models/InspectionDModel.js');
-
+// Libraries
+const HelperLib = require(_directory_base + '/app/v1.0/Http/Libraries/Helper.js');
 /*
  |--------------------------------------------------------------------------
  | Versi 1.0.0
@@ -36,7 +37,6 @@ exports.create = (req, res) => {
 					data: []
 				})
 			} else {
-				var auth = req.auth;
 				const set = new InspectionDModel({
 					BLOCK_INSPECTION_CODE_D: req.body.BLOCK_INSPECTION_CODE_D,
 					BLOCK_INSPECTION_CODE: req.body.BLOCK_INSPECTION_CODE,
@@ -60,6 +60,11 @@ exports.create = (req, res) => {
 								data: {}
 							});
 						}
+						res.send({
+							status: true,
+							message: success,
+							data: []
+						});
 					}).catch(err => {
 						res.status(500).send({
 							status: false,
