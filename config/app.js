@@ -11,7 +11,7 @@ module.exports = {
 	|--------------------------------------------------------------------------
 	*/
 	name: 'MSA Testing Inspection',
-	env: 'dev', // prod, qa, dev,
+	env: 'qa', // prod, qa, dev,
 	port: {
 		dev: process.env.PORT || 4020,
 		qa: process.env.PORT || 5020,
@@ -34,14 +34,14 @@ module.exports = {
 	*/
 	kafka: {
 		dev: {
-			server_host: '149.129.221.137:9092'
+			server_host: 'kafkadev.tap-agri.com:9092'
 		},
 		qa: {
-			server_host: '149.129.221.137:9092'
+			server_host: 'kafkaqa.tap-agri.com:9092'
 		},
 		prod: {
 			// server_host: '149.129.221.137:9092'
-			server_host: '149.129.252.13:9092'
+			// server_host: '149.129.252.13:9092'
 		}
 	},
 

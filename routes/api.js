@@ -5,7 +5,7 @@
  */
 //Controllers
 const Controllers = {
-    InspectionDetailController: require(_directory_base + '/app/v1.0/Http/Controllers/InspectionDetailController.js')
+    // InspectionDetailController: require(_directory_base + '/app/v1.0/Http/Controllers/InspectionDetailController.js')
 }
 module.exports = (app) => {
 
@@ -29,6 +29,6 @@ module.exports = (app) => {
     | Versi 1.0
     |--------------------------------------------------------------------------
     */
-    app.post('/api/v1.1/detail', Controllers.InspectionDetailController.create);
-    app.get('/api/v1.1/detail', Controllers.InspectionDetailController.find_one);
+    // app.post('/api/v1.1/detail', Controllers.InspectionDetailController.create);
+    // app.get('/api/v1.1/detail', Controllers.InspectionDetailController.find_one);
 }

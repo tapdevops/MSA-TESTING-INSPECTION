@@ -81,7 +81,7 @@ exports.create = (req, res) => {
 * Untuk menampilkan 1 row data berdasarkan Block Inspection Detail Code.
 * --------------------------------------------------------------------
 */
-exports.find_one = (req, res) => {
+exports.exportKafka = (req, res) => {
 
 	var auth = req.auth;
 	InspectionDModel.find({

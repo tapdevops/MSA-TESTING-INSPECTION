@@ -55,7 +55,7 @@ const Kafka = require( 'kafka-node' );
 			// Class
 			const Producer = Kafka.Producer;
 			const Client = new Kafka.KafkaClient( { 
-				kafkaHost: '149.129.221.137:9092'
+				kafkaHost: config.app.kafka[config.app.env].server_host
 			} );
 
 			// Variable
@@ -71,16 +71,16 @@ const Kafka = require( 'kafka-node' );
 			producer_kafka_client.on( 'ready', function() {
 				const push_status = producer_kafka_client.send( payloads, ( err, data ) => {
 					if ( err ) {
-						console.log( '[KAFKA PRODUCER] - Broker Update Failed.', messages );
+						console.log( '[KAFKA PRODUCER] - Broker Update Failed.', err );
 					} else {
-						// console.log( '[KAFKA PRODUCER] - Broker Update Success.' );
+						console.log( '[KAFKA PRODUCER] - Broker Update Success.' );
 					}
 				} );
 			} );
 
 			producer_kafka_client.on( 'error', function( err ) {
-				// console.log( err );
 				console.log( '[KAFKA PRODUCER] - Connection Error.' );
+				console.log( err );
 
 				//throw err;
 				let data = JSON.parse( messages );

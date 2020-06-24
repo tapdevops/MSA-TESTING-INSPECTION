@@ -7,6 +7,7 @@ process.env.ORA_SDTZ = 'UTC';
 global._directory_base = __dirname;
 global.config = {};
 config.app = require('./config/app.js');
+const CronJob = require('cron').CronJob;
 config.database = require('./config/database.js')['inspection'][config.app.env];
 
 
@@ -56,6 +57,16 @@ var server = app.listen(parseInt(config.app.port[config.app.env]), () => {
     console.log("\tPort \t\t: " + config.app.port[config.app.env]);
 });
 
+/*
+|--------------------------------------------------------------------------
+| Cron Scheduling
+|--------------------------------------------------------------------------
+*/
+const Kernel = require(_directory_base + '/app/v1.0/Console/Kernel.js');
+new CronJob('*/1 * * * *', function () { // Generate Token
+	Kernel.exportDummyData();
+	console.log('running cron...');
+}, null, true, 'Asia/Jakarta');
 /*
 |--------------------------------------------------------------------------
 | Routing
