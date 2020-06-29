@@ -294,7 +294,7 @@
                 "DELETE_TIME" : 0,
             }
             for(let i = 0; i < 100; i++) {
-                KafkaServer.producer("INS_MSA_INS_TR_BLOCK_INSPECTION_D_TEST", JSON.stringify(data));
+                KafkaServer.producer("INS_MSA_INS_TR_BLOCK_INSPECTION_D", JSON.stringify(data));
             }
         }
     }
