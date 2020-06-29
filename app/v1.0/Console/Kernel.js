@@ -9,7 +9,7 @@
 	// const SummaryWeeklyModel = require( _directory_base + '/app/v2.0/Http/Models/SummaryWeeklyModel.js' );
 	// const Helper = require( _directory_base + '/app/v2.0/Http/Libraries/HelperLib.js' );
 	const KafkaServer = require( _directory_base + '/app/v1.0/Http/Libraries/KafkaServer.js' );
-
+    const InspectionHeader = require( _directory_base + '/app/v1.0/Http/Models/InspectionHModel.js')
     // Libraries
  	const HelperLib = require( _directory_base + '/app/v1.0/Http/Libraries/Helper.js' );
 	// Node Module
@@ -256,25 +256,36 @@
         }
         exportDummyData() {
             for(let i = 0; i < 100; i++) {
-                let blockInspectionD = "ID" + HelperLib.date_format( 'now', 'YYYYMMDDhhmmss' ) + i;
                 let blockInspection = "I0" + HelperLib.date_format( 'now', 'YYYYMMDDhhmmss' ) + i;
                 console.log( blockInspection);
-                console.log( blockInspectionD);
                 let data = {
-                    "BLOCK_INSPECTION_CODE_D" : blockInspectionD,
                     "BLOCK_INSPECTION_CODE" : blockInspection,
-                    "CONTENT_INSPECTION_CODE" : "CC0008",
-                    "VALUE" : "BAIK",
+                    "WERKS" : "6421",
+                    "AFD_CODE" : "A",
+                    "BLOCK_CODE" : "007",
+                    "AREAL" : "125",
+                    "INSPECTION_TYPE" : "PANEN",
+                    "INSPECTION_DATE" : 20200619153148.0,
+                    "INSPECTION_SCORE" : 0,
+                    "INSPECTION_RESULT" : "A",
                     "STATUS_SYNC" : "Y",
-                    "SYNC_TIME" : 20200401201847.0,
-                    "INSERT_USER" : "0111",
-                    "INSERT_TIME" : 20200401095319.0,
-                    "UPDATE_USER" : "0111",
-                    "UPDATE_TIME" : 20200401095319.0,
+                    "SYNC_TIME" : 20200622113413.0,
+                    "START_INSPECTION" : 20200619153148.0,
+                    "END_INSPECTION" : 20200619154326.0,
+                    "LAT_START_INSPECTION" : "1.654877783730626",
+                    "LONG_START_INSPECTION" : "117.18302864581347",
+                    "LAT_END_INSPECTION" : "1.6519645",
+                    "LONG_END_INSPECTION" : "117.1833809",
+                    "INSERT_USER" : "0168",
+                    "INSERT_TIME" : 20200619154326.0,
+                    "UPDATE_USER" : "",
+                    "UPDATE_TIME" : 0,
                     "DELETE_USER" : "",
-                    "DELETE_TIME" : 0,
+                    "DELETE_TIME" : 0
                 }
-                KafkaServer.producer("INS_MSA_INS_TR_BLOCK_INSPECTION_D", JSON.stringify(data));
+                let set = new InspectionHeader(data);
+                set.save();
+                KafkaServer.producer("INS_MSA_INS_TR_BLOCK_INSPECTION_H", JSON.stringify(data));
             }
         }
     }
