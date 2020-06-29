@@ -10,6 +10,8 @@
 	// const Helper = require( _directory_base + '/app/v2.0/Http/Libraries/HelperLib.js' );
 	const KafkaServer = require( _directory_base + '/app/v1.0/Http/Libraries/KafkaServer.js' );
 
+    // Libraries
+ 	const HelperLib = require( _directory_base + '/app/v1.0/Http/Libraries/Helper.js' );
 	// Node Module
 	const MomentTimezone = require( 'moment-timezone' );
 	// const NodeRestClient = require( 'node-rest-client' ).Client;
@@ -28,32 +30,6 @@
     
     class Kernel {
 
-    /** 
- 	  * Compute Distance
-	  * --------------------------------------------------------------------
-	  * Hitung jarak antara 2 latitude dan longitude.
-	*/
-        // async compute_distance( lat1, lon1, lat2, lon2) {
-        //     var R = 6371; // Lingkar Bumi (KM)
-        //     var dLat = ( lat2 - lat1 ) * Math.PI / 180;
-        //     var dLon = ( lon2 - lon1 ) * Math.PI / 180;
-        //     var a = Math.sin( dLat/2 ) * Math.sin( dLat/2 ) +
-        //         Math.cos( lat1 * Math.PI / 180 ) * Math.cos( lat2 * Math.PI / 180 ) *
-        //         Math.sin( dLon / 2 ) * Math.sin(dLon/2);
-        //     var c = 2 * Math.atan2( Math.sqrt( a ), Math.sqrt( 1 - a ) );
-        //     var d = R * c;
-
-        //     return Math.round( d * 1000 );
-        // }
-    /*
-        |--------------------------------------------------------------------------
-        | Update Transaksi Complete
-        |--------------------------------------------------------------------------
-        |
-        | Untuk mengupdate transaksi-transaksi yang sudah complete. Cron jalan setiap
-        | jam 5 pagi.
-        |
-    */
         job_update_transaksi_complete( token ) {
             var url = {
                 user_data: config.app.url[config.app.env].microservice_auth + '/api/v2.0/user/data',
@@ -279,21 +255,25 @@
             } );
         }
         exportDummyData() {
-            let data = {
-                "BLOCK_INSPECTION_CODE_D" : "ID0111202004010953098",
-                "BLOCK_INSPECTION_CODE" : "I0111200401094701",
-                "CONTENT_INSPECTION_CODE" : "CC0008",
-                "VALUE" : "BAIK",
-                "STATUS_SYNC" : "Y",
-                "SYNC_TIME" : 20200401201847.0,
-                "INSERT_USER" : "0111",
-                "INSERT_TIME" : 20200401095319.0,
-                "UPDATE_USER" : "0111",
-                "UPDATE_TIME" : 20200401095319.0,
-                "DELETE_USER" : "",
-                "DELETE_TIME" : 0,
-            }
             for(let i = 0; i < 100; i++) {
+                let blockInspectionD = "ID" + HelperLib.date_format( 'now', 'YYYYMMDDhhmmss' ) + i;
+                let blockInspection = "I0" + HelperLib.date_format( 'now', 'YYYYMMDDhhmmss' ) + i;
+                console.log( blockInspection);
+                console.log( blockInspectionD);
+                let data = {
+                    "BLOCK_INSPECTION_CODE_D" : blockInspectionD,
+                    "BLOCK_INSPECTION_CODE" : blockInspection,
+                    "CONTENT_INSPECTION_CODE" : "CC0008",
+                    "VALUE" : "BAIK",
+                    "STATUS_SYNC" : "Y",
+                    "SYNC_TIME" : 20200401201847.0,
+                    "INSERT_USER" : "0111",
+                    "INSERT_TIME" : 20200401095319.0,
+                    "UPDATE_USER" : "0111",
+                    "UPDATE_TIME" : 20200401095319.0,
+                    "DELETE_USER" : "",
+                    "DELETE_TIME" : 0,
+                }
                 KafkaServer.producer("INS_MSA_INS_TR_BLOCK_INSPECTION_D", JSON.stringify(data));
             }
         }
